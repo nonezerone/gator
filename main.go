@@ -1,7 +1,26 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/nonezerone/gator/internal/config"
+)
 
 func main() {
-    fmt.Println("gatorrr!")
+	cfg, err := config.Read()
+	if err != nil {
+		fmt.Println("ERROR WHILE READING FILE")
+	}
+	err = cfg.SetUser()
+	if err != nil {
+		fmt.Println("ERROR WHILE SETTING USER")
+	}
+
+	newCfg, err := config.Read()
+	if err != nil {
+		fmt.Println("ERROR WHILE READING FILE")
+	}
+
+	fmt.Println(newCfg.DBUrl)
+	fmt.Println(newCfg.CurrentUserName)
 }
